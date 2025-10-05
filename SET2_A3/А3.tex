@@ -1,0 +1,46 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage[T2A]{fontenc}      
+\usepackage[utf8]{inputenc}    
+\usepackage[russian]{babel}    
+\geometry{a4paper, margin=2cm}
+
+\begin{document}
+Наш алгоритм:
+\[
+T(N) = a \cdot T\left(\frac{N}{4}\right) + O(N^2)
+\]
+и алгоритм Штрассена:
+\[
+T(N) = 7 \cdot T\left(\frac{N}{2}\right) + O(N^2)
+\]
+
+По Мастер-теореме для алгоритма Штрассена имеем:
+\[
+a = 7 \ge 1, \quad b = 2 > 1, \quad k = 2 > 0, \quad f(n) \text{ --- монотонна.}
+\]
+
+\[
+\log_b(a) = \log_2(7) > 2 = k \Rightarrow O(N^{\log_2(7)} \cdot f(N))
+\]
+
+Мастер-теорема для нашего алгоритма:
+\[
+a = a \ge 1 \text{ --- первая оценка}, \quad b = 4, \quad k = 2, f(n) \text{ --- монотонна.}
+\]
+ 
+\[
+\log_b(a) = \log_4(a) < \log_2(7),
+\]
+иначе у нас не будет алгоритма асимптотически быстрее. Следовательно:
+\[
+\log_2(a) < 2\log_2(7) \Rightarrow \log_2(a) < \log_2(49) \Rightarrow a < 49 \ \text{и} \ a \ge 1.
+\]
+
+\[
+\boxed{a \in [1; 49)}
+\]
+
+Условие, что \(\log_b(a) < k\) или \(\log_b(a) > k\), можно не рассматривать для нашего алгоритма, так как нам подойдёт любой из этих случаев, и мы получим асимптотически более быстрый алгоритм.
+\end{document}

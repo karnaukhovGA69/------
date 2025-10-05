@@ -1,0 +1,194 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage[T2A]{fontenc}      
+\usepackage[utf8]{inputenc}    
+\usepackage[russian]{babel}    
+\geometry{a4paper, margin=2cm}
+
+\begin{document}
+
+\section*{Пункт 1}
+
+\subsection*{a)}
+\[
+a = 13 \geq 1 \quad \text{(фактор ветвления)}, \quad
+b = 21 > 1 \quad \text{(коэффициент уменьшения размера)}, \quad
+k \geq 1.5
+\]
+\[
+f(n) = 1 \quad \text{--- монотонная }.
+\]
+
+Можно воспользоватья мастер-теорему
+
+\[
+\log_{21}(13) < 1.5 = k \;\;\Rightarrow\;\; T(n) = O\!\left(n^{3/2}\right).
+\]
+
+\subsection*{b)}
+\[
+T(n) = T(n-2) + T(n-3) + n \;\;\leq\;\; 2T(n-2) + n
+\]
+\[
+a = 3 > 0, \quad b = 2 > 0, \quad k = 1 \geq 0, \quad f(n) = 1 \;\; \text{--- монотонная }.
+\]
+
+Значит можно юзать:
+
+\[
+\log_b(a) > 1 = k \;\;\Rightarrow\;\; T(n) = O\!\left(2^{n/2}\cdot n^k\right),
+\]
+
+\subsection*{c)}
+\[
+T(n) = 12T(n/4) + n^{7/4}
+\]
+\[
+a = 12 \geq 1, \quad b = 4 > 1, \quad k = \tfrac{7}{4} \geq 0, \quad f(n) = 1 \;\; \text{--- монотонна }.
+\]
+
+Условия выполняются, значит применяем:
+
+\[
+\log_{4}(12) > \tfrac{7}{4} \;\;\Rightarrow\;\; T(n) = O\!\left(n^{\log_{4}(12)}\right).
+\]
+
+\subsection*{d)}
+\[
+T(n) = 2T(n/3) + 2G(n/3) + O(1), \qquad
+G(n) = 2G(n/3) + n \cdot \sin n.
+\]
+
+А вот тут проблемки: $G(n)$  не монотонна, поэтому мастер-теорему использовать не можем :((
+
+\subsection*{e)}
+\[
+T(n) = \tfrac{9}{4}T\!\left(\tfrac{2n}{3}\right) + n^2 \cdot \ln\!\big(n^{1/2}\big) \cdot \ln(\ln n)
+\]
+\[
+a = \tfrac{9}{4} \geq 1, \quad b = \tfrac{3}{2} > 1, \quad k = 2 \geq 0, \quad f(n) = \ln\!\big(n^{1/2}\big)\cdot \ln(\ln n) \;\; \text{--- монотонна }.
+\]
+
+Всё сходится, используем:
+
+\[
+\log_{3/2}\!\left(\tfrac{9}{4}\right) = 2 = k \;\;\Rightarrow\;\; 
+T(n) = O\!\Big(n^k \cdot \ln(n^{1/2}) \cdot \ln(\ln n) \cdot \log n\Big).
+\]
+
+\section*{Пункт 2}
+
+В пункте \textbf{d}  — не смогли использовать мастер-теорему  
+
+Уничтожаем без мастер-теоремы:  
+\[
+G(n) = 2G(n/3) + n\sin(n).
+\]
+Для верхней оценки используем $n\sin(n) \leq n$, тогда
+\[
+G(n) = 2G(n/3) + n.
+\]
+
+Так как подзадача уменьшается в 3 раза, глубина рекурсии:
+\[
+\log_3(n)
+\]
+На каждом уровне рекурсии число вызовов:
+\[
+2^i
+\]
+
+Следовательно:
+\[
+\sum_{i=0}^{\log_3(n)} 2^i \cdot \frac{n}{3^i}
+= n \cdot \sum_{i=0}^{\log_3(n)} \left(\tfrac{2}{3}\right)^i
+= O(n).
+\]
+
+\noindent Проверим мастер-теоремой:
+
+\[
+a = 2 \geq 1, \quad b = 3 > 0, \quad k = 1 > 0, \quad f(n) \;\;\text{- монотонная }.
+\]
+\[
+\log_3(2) < 1 = k \;\;\Rightarrow\;\; O(n).
+\]
+
+Имеем:
+\[
+T(n) = 2T(n/3) + O(n).
+\]
+
+При построении дерева рекурсии: на каждом уровне $2^i$ подзадач, глубина $\log_3(n)$. Тогда:
+\[
+\sum_{i=0}^{\log_3(n)} \frac{2^i n}{3^i} = O(n).
+\]
+
+Значит оценка совпадает.
+
+\section*{Пункт 3}
+
+\subsection*{a)}
+\[
+T(n) = T(n/4) + 2T(n/16) + n\log n \;\;\Rightarrow\;\; 
+T(n) \leq 3T(n/4) + n\log n
+\]
+
+\[
+a=3, \quad b=4, \quad k=1, \quad f(n)=\log n \;\;\text{--- монотонная}.
+\]
+
+\[
+\log_4(3) < 1 = k \;\;\Rightarrow\;\; O(n\log n).
+\]
+
+\textbf{Метод Акра–Баззи:}
+\[
+\left(\tfrac14\right)^p + 2\left(\tfrac{1}{16}\right)^p = 1 \;\;\Rightarrow\;\; p=\tfrac12.
+\]
+
+\[
+T(n) = \Theta\!\Big(n^{1/2}\big(1+\int_1^n u^{-1/2}\log u \,du\big)\Big).
+\]
+
+Интеграл $\sim 2\sqrt{n}\log n$, значит:
+\[
+T(n) = \Theta\!\big(\sqrt{n}\cdot \sqrt{n}\log n\big)
+      = \Theta(n\log n).
+\]
+
+\textbf{Итог:} совпало
+
+\subsection*{b)}
+\[
+T(n)=3T(n/2)+6T(n/5)+T(n/10)+\frac{n^2}{\ln n}.
+\]
+
+Для верхней оценки можно грубо завысить:
+\[
+T(n)\leq 10T(n/2)+\frac{n^2}{\ln n}.
+\]
+
+\[
+a=10,\quad b=2,\quad k=2,\quad f(n)=\tfrac{1}{\ln n}.
+\]
+
+\[
+\log_2(10) \approx 3.3 > k=2 \;\;\Rightarrow\;\; T(n)=O\!\left(n^{\log_2(10)}\right).
+\]
+
+\textbf{Метод Акра–Баззи:}
+\[
+3\cdot (1/2)^p+6\cdot (1/5)^p+(1/10)^p=1 \;\;\Rightarrow\;\; p=2.
+\]
+
+\[
+T(n) = \Theta\!\Big(n^2 \big(1+\int_1^n \tfrac{du}{u\ln u}\big)\Big)
+= \Theta(n^2\ln\ln n).
+\]
+
+\textbf{Итог:} оценки не совпали :D  
+Причина: при грубой замене $T(n/5),T(n/10)\mapsto T(n/2)$ мы сильно завысили число подзадачи и поэтому мастер-теорема выдала большую степень. Акра–Баззи же учитывает все коэффициенты, и позволяет считать их все, а не приводить к наибольшему
+
+\end{document}
