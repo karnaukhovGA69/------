@@ -10,8 +10,8 @@ pair<vector<int>, long long> Count(const vector<int>& arr, int left, int mid, in
     long long invCount = 0;
 
 
+    int k = mid + 1;
     for (int i = left; i <= mid; i++) {
-        int k = mid + 1;
         while (k <= right && arr[i] > 2 * arr[k]) {
             k++;
         }
